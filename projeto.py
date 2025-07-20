@@ -1,6 +1,8 @@
 import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
+from io import StringIO
+import pandas as pd
 
 st.set_page_config(page_title="Simulador RLC", layout="centered")
 
@@ -45,6 +47,18 @@ st.markdown("""
         box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
         margin-top: 6rem;
     }
+            
+    .creditos {
+        margin-top: 2rem;
+        padding: 1rem;
+        background-color: #e6f2ff;
+        border-left: 5px solid #3399ff;
+        border-radius: 8px;
+    }
+
+    .creditos h4 {
+        margin-bottom: 0.5rem;
+    }
     </style>
 """, unsafe_allow_html=True)
 
@@ -61,7 +75,7 @@ st.markdown("""
     <h4>Orientador</h4>
     <p><strong>Prof. Dr. Marcos George Moreno</strong></p>
     <p><em>Projeto acadêmico para a disciplina de Física Aplicada à Computação (2025.1)</em></p>
-    <p>🔗 <a href="https://github.com/eduardo-diniz/rlc-fisica-bcc-2025.git" target="_blank">Repositório no GitHub</a></p>
+    <p>🔗 <a href="https://github.com/eduardo-diniz/rlc-fisica-bcc-2025/tree/beta" target="_blank">Repositório no GitHub</a></p>
 </div>
 """, unsafe_allow_html=True)
 
@@ -82,8 +96,8 @@ with col1:
     )
     L = st.number_input(
         "Indutância L (H)",
-        value=0.01,
-        step=0.001,
+        value=0.1000,
+        step=0.1000,
         format="%.4f",
         help="Valor da indutância (L), que se opõe à variação da corrente elétrica."
     )
@@ -106,14 +120,14 @@ with col2:
     if tipo_fonte == "Corrente Contínua (CC)":
         V0 = st.number_input(
             "Tensão da fonte CC (V)",
-            value=5.0,
+            value=10.0,
             help="Valor constante da tensão fornecida pela fonte de corrente contínua."
         )
         def V(t): return V0
     else:
         A = st.number_input(
             "Amplitude (V)",
-            value=5.0,
+            value=10.0,
             help="Valor máximo (positivo ou negativo) da tensão senoidal da fonte CA."
         )
         f = st.number_input(
@@ -130,8 +144,8 @@ col3, col4, col5 = st.columns(3)
 with col3:
     tf = st.number_input(
         "Tempo final (s)",
-        value=0.1,
-        step=0.01,
+        value=1.0,
+        step=0.1,
         help="Tempo total da simulação (duração em segundos)."
     )
 with col4:
@@ -147,16 +161,19 @@ with col5:
 
 # Inicialização
 x = np.zeros((n, 2))  # [I, dI/dt]
+
 x[0, 0] = 0
 x[0, 1] = 0
 tempo = np.linspace(t0, tf, n)
 
 # Equações diferenciais
 def derivadas(t, x):
-    I = x[0]
-    dIdt = x[1]
-    d2Idt2 = (1 / L) * (V(t) - R * dIdt - (1 / C) * I)
-    return np.array([dIdt, d2Idt2])
+    q = x[0]
+    i = x[1]
+    dqdt = i
+    didt = (1 / L) * (V(t) - R * i - (1 / C) * q)
+    return np.array([dqdt, didt])
+
 
 # Runge-Kutta
 for i in range(n - 1):
@@ -167,12 +184,34 @@ for i in range(n - 1):
     k4 = h * derivadas(t + h, x[i] + k3)
     x[i + 1] = x[i] + (k1 + 2 * k2 + 2 * k3 + k4) / 6
 
+
+
+amostragem = 1000  
+df = pd.DataFrame({
+    "Tempo (s)": tempo[::amostragem],
+    "Corrente (A)": x[::amostragem, 1]
+})
+
+# Converter para CSV em memória
+csv_buffer = StringIO()
+df.to_csv(csv_buffer, index=False)
+csv_data = csv_buffer.getvalue()
+
+# Botão de download
+st.download_button(
+    label="📥 Baixar CSV da Simulação",
+    data=csv_data,
+    file_name="simulacao_rlc.csv",
+    mime="text/csv"
+)
+
+
 # Gráfico
 st.markdown("---")
 st.subheader("Corrente no circuito RLC")
 
 fig, ax = plt.subplots(figsize=(10, 4))
-ax.plot(tempo, x[:, 0], label="I(t)", color='#007acc', linewidth=2)
+ax.plot(tempo, x[:, 1], label="I(t)", color='#007acc', linewidth=2)
 ax.set_xlabel("Tempo (s)")
 ax.set_ylabel("Corrente (A)")
 ax.set_title("Resposta do Circuito", fontsize=14)
@@ -180,4 +219,11 @@ ax.grid(True, linestyle='--', alpha=0.6)
 ax.legend()
 st.pyplot(fig)
 
+from matplotlib.ticker import FormatStrFormatter
+ax.yaxis.set_major_formatter(FormatStrFormatter('%.1f'))
+
+
+
 st.caption("💡 Dica: ajuste os valores de R, L e C para visualizar diferentes regimes de amortecimento.")
+
+
