@@ -101,7 +101,7 @@ simulador-rlc/
 
 ---
 
-## 🧑‍💻 Autor
+## Autores
 
 - Eduardo Gomes  - Fabio Barros - Marco Antonio - Rodrigo Tibiriça
 - Projeto acadêmico para disciplina de Fisica Aplicada à Computação (2025.1)

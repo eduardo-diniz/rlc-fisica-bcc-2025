@@ -37,7 +37,7 @@ st.markdown("""
     }
 
 
-    block-container {
+    .block-container {
         padding: 2rem;
         background-color: #ffffff;
         border: 2px solid #007acc;
@@ -46,6 +46,23 @@ st.markdown("""
         margin-top: 2rem;
     }
     </style>
+""", unsafe_allow_html=True)
+
+# Créditos
+st.markdown("""
+<div class="creditos">
+    <h4>Autores do Projeto</h4>
+    <ul>
+        <li><strong>Eduardo Gomes</strong></li>
+        <li><strong>Fabio Barros</strong></li>
+        <li><strong>Marco Antonio</strong></li>
+        <li><strong>Rodrigo Tibiriça</strong></li>
+    </ul>
+    <h4>Orientador</h4>
+    <p><strong>Prof. Dr. Marcos George Moreno</strong></p>
+    <p><em>Projeto acadêmico para a disciplina de Física Aplicada à Computação (2025.1)</em></p>
+    <p>🔗 <a href="https://github.com/eduardo-diniz/rlc-fisica-bcc-2025.git" target="_blank">Repositório no GitHub</a></p>
+</div>
 """, unsafe_allow_html=True)
 
 # Título
