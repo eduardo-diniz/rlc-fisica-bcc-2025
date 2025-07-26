@@ -33,6 +33,8 @@ Este é um simulador interativo de circuitos RLC em regime transiente, implement
 ```bash
 git clone https://github.com/seu-usuario/simulador-rlc.git
 cd simulador-rlc
+```
+
 ✅ 2. (Opcional, mas recomendado) Crie um ambiente virtual
 No macOS/Linux:
 bash
