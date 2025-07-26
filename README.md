@@ -1,105 +1,81 @@
+# 🔄 Simulador RLC com Método de Runge-Kutta 4ª Ordem
 
-# 🔌 Simulador de Circuito RLC com Runge-Kutta 4ª Ordem
-
-Este projeto implementa um simulador interativo de circuitos RLC série utilizando o método de **Runge-Kutta de 4ª ordem (RK4)** para resolver numericamente a equação diferencial da corrente.
-
-A interface gráfica é feita com [Streamlit](https://streamlit.io), permitindo simulações via navegador.
+Este é um simulador interativo de circuitos RLC em regime transiente, implementado com o método de Runge-Kutta de 4ª ordem e interface gráfica em [Streamlit](https://streamlit.io/). Ele permite simular a corrente de um circuito RLC série ao longo do tempo com parâmetros ajustáveis.
 
 ---
 
-## 🚀 Funcionalidades
+## 📸 Demonstração
 
-- Escolha entre fonte de tensão **contínua (CC)** ou **senoidal (CA)**
-- Definição de:
-  - Resistência (R)
-  - Indutância (L)
-  - Capacitância (C)
-  - Tensão (CC) ou Amplitude e Frequência (CA)
-- Gráfico da corrente \( I(t) \)
-- Simulação com o método **Runge-Kutta de 4ª ordem**
+![Simulador RLC](.github/simulador_rlc_demo.gif) <!-- Substitua pelo caminho real do seu GIF ou screenshot -->
 
 ---
 
-## ⚙️ Como executar o projeto
+## 🧪 Funcionalidades
 
-Você pode executar o projeto localmente com os seguintes passos:
+- Simulação numérica com método de Runge-Kutta de 4ª ordem.
+- Ajuste de parâmetros: resistência (R), capacitância (C), indutância (L), tempo total (T) e passo (h).
+- Visualização gráfica da corrente em função do tempo.
+- Exportação dos dados simulados em CSV (com amostragem).
 
-### 1. Clone este repositório
+---
+
+## ⚙️ Requisitos
+
+- Python 3.8 ou superior
+- Navegador web moderno (Chrome, Firefox, etc.)
+
+---
+
+## 📦 Instalação
+
+### ✅ 1. Clone o repositório
 
 ```bash
 git clone https://github.com/seu-usuario/simulador-rlc.git
 cd simulador-rlc
 ```
 
-### 2. Crie um ambiente virtual (recomendado)
-
+✅ 2. (Opcional, mas recomendado) Crie um ambiente virtual
+No macOS/Linux:
 ```bash
-python -m venv venv
+
+python3 -m venv venv
+source venv/bin/activate
 ```
-
-### 3. Ative o ambiente virtual
-
-- **Windows:**
-  ```bash
-  .\venv\Scripts\activate
-  ```
-
-- **Linux/macOS:**
-  ```bash
-  source venv/bin/activate
-  ```
-
-### 4. Instale as dependências
-
-Se você tiver o `requirements.txt`:
-
+No Windows:
 ```bash
+
+python -m venv venv
+venv\Scripts\activate
+```
+✅ 3. Instale as dependências
+```bash
+
 pip install -r requirements.txt
 ```
-
-Ou instale manualmente:
-
-```bash
-pip install streamlit matplotlib numpy
-```
-
-### 5. Execute a aplicação
+Se preferir, instale manualmente:
 
 ```bash
-streamlit run projeto.py
-```
 
-> Caso o comando `streamlit` não funcione, use:
+pip install streamlit numpy matplotlib pandas
+```
+▶️ Executando o simulador
 ```bash
-python -m streamlit run projeto.py
+
+streamlit run simulador_rlc.py
 ```
+📂 Estrutura do Projeto
 
----
-
-## 📚 Equação usada
-
-A equação diferencial do circuito RLC série é:
-
-\[
-L \frac{d^2I}{dt^2} + R \frac{dI}{dt} + \frac{1}{C} I = V(t)
-\]
-
-O método de Runge-Kutta de 4ª ordem é usado para resolver numericamente o sistema equivalente.
-
----
-
-## 📁 Estrutura do projeto
-
-```
 simulador-rlc/
-│
-├── projeto.py              # Código principal com Streamlit
-├── README.md               # Este arquivo
-├── requirements.txt        # Lista de dependências
-└── exemplo.gif             # (Opcional) Animação ou imagem do app
-```
+├── simulador_rlc.py
+├── requirements.txt
+├── README.md
+└── .github/
+ 
+💡 Notas
+O CSV exportado possui amostragem para reduzir o tamanho do arquivo (configurável no código via fator_amostragem).
 
----
+A simulação utiliza condições iniciais: corrente inicial = 0, carga inicial = 0.
 
 ## Autores
 
@@ -111,3 +87,4 @@ simulador-rlc/
 ## 📝 Licença
 
 Este projeto está disponível para uso pessoal e educacional. Sinta-se livre para modificar.
+](https://fisica-bcc-2025.streamlit.app/)](https://fisica-bcc-2025.streamlit.app/)
