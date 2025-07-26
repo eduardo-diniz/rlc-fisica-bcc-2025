@@ -37,36 +37,35 @@ cd simulador-rlc
 
 ✅ 2. (Opcional, mas recomendado) Crie um ambiente virtual
 No macOS/Linux:
-bash
-Copiar
-Editar
+```bash
+
 python3 -m venv venv
 source venv/bin/activate
+```
 No Windows:
-bash
-Copiar
-Editar
+```bash
+
 python -m venv venv
 venv\Scripts\activate
+```
 ✅ 3. Instale as dependências
-bash
-Copiar
-Editar
+```bash
+
 pip install -r requirements.txt
+```
 Se preferir, instale manualmente:
 
-bash
-Copiar
-Editar
+```bash
+
 pip install streamlit numpy matplotlib pandas
+```
 ▶️ Executando o simulador
-bash
-Copiar
-Editar
+```bash
+
 streamlit run simulador_rlc.py
+```
 📂 Estrutura do Projeto
-Copiar
-Editar
+
 simulador-rlc/
 ├── simulador_rlc.py
 ├── requirements.txt
