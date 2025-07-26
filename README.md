@@ -4,11 +4,7 @@ Este é um simulador interativo de circuitos RLC em regime transiente, implement
 
 ---
 
-## 📸 Demonstração
 
-![Simulador RLC](.github/simulador_rlc_demo.gif) <!-- Substitua pelo caminho real do seu GIF ou screenshot -->
-
----
 
 ## 🧪 Funcionalidades
 
