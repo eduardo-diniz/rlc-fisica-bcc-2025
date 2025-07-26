@@ -71,7 +71,7 @@ simulador-rlc/
 ├── requirements.txt
 ├── README.md
 └── .github/
-    └── simulador_rlc_demo.gif (opcional)
+ 
 💡 Notas
 O CSV exportado possui amostragem para reduzir o tamanho do arquivo (configurável no código via fator_amostragem).
 
